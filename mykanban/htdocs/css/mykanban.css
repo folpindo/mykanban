@@ -1,0 +1,59 @@
+div {
+    border: 1px solid black;
+    padding:5px;
+}
+div#stacks {
+    border: 1px solid black;
+    min-height: 800px;
+    max-height: 800px;
+}
+div#stacks ul {
+    list-style: none;
+}
+div#stacks ul > li {
+    float:left;
+}
+div.stack_container {
+    min-height: 800px;
+    max-height: 800px;
+}
+div.main_stack {
+    border:1px solid black;
+    min-width: 330px;
+    max-width: 330px;
+    min-height: 800px;
+    max-height: 800px;
+}
+div.backlog {
+    min-width: 160px;
+    max-width: 160px;
+}
+
+div.sub_stack {
+    border:1px solid black;
+    min-width: 150px;
+    max-width: 150spx;
+    min-height: 800px;
+    max-height: 800px;
+}
+div.main_stack > div {
+    float:left;
+}
+
+ul.stack {
+    border:1px solid black;
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 100px;
+    max-height: 100px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+
+ul.stack > li {
+    border:1px solid black;
+    min-width: 50px;
+    max-width: 50px;
+
+}

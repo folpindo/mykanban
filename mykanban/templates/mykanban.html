@@ -1,0 +1,163 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n">
+    <xi:include href="layout.html" />
+    <head>
+        <title>MyKanban</title>
+        <script>
+//<![CDATA[
+            $(function () {
+                $("ul.stack").sortable({
+                    connectWith: "ul"
+                });
+                $("ul.stack").droppable({
+                    drop: function () {
+                        console.log("dropped");
+                        console.log($(this).parent("div").attr("id"));
+                    }
+                });
+
+            });
+            $(".stack").disableSelection();
+            
+            function escape(dstring){
+                var el = $("<h1></h1>");
+                return el.html(dstring).text()
+            }
+//]]>
+        </script>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    </head>
+
+    <body>
+        <div id="stacks">
+            <ul>
+                <li>
+                    <div class="stack_container">
+                        <h1>ECOM - DEVELOPMENT READY</h1>
+                        <div class="main_stack">
+                            <div class="sub_stack" id="backlog_backlog">
+                                <h3>Backlog</h3>
+                                <ul class="stack">
+                                    <li><a>#1</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="stack_container">
+                        <h1>ECOM - WORK-IN-PROGRESS</h1>
+                        <div class="main_stack">
+                            <div class="sub_stack">
+                                <h3>Development</h3>
+                                <div id="wip_dev_pending" >
+                                    <h3>Pending</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+                                <div id="wip_dev_wip">
+                                    <h3>Wip</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="sub_stack">
+                                <h3>Quality Assurance</h3>
+                                <div id="wip_qa_pending">
+                                    <h3>Pending</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+                                <div id="wip_qa_wip">
+                                    <h3>Wip</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="stack_container">
+                        <h1>ECOM - READY FOR DEPLOYMENT</h1>
+                        <div class="main_stack">
+                            <div class="sub_stack">
+                                <h3>Release Engineering</h3>
+                                <div id="ready_re_pending">
+                                    <h3>Pending</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+                                <div id="ready_re_wip">
+                                    <h3>Wip</h3>
+                                    <ul class="stack">
+                                        <li><a>#2</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script>
+            //<![CDATA[
+            $(document).ready(function () {
+                var isDragging = false;
+                $("ul.stack.ui-sortable li")
+                        .mousedown(function () {
+                            isDragging = false;
+                        })
+                        .mousemove(function () {
+                            isDragging = true;
+                        })
+                        .mouseup(function () {
+                            var wasDragging = isDragging;
+                            isDragging = false;
+                            if (wasDragging) {
+                                mykanban_update(this);
+                            }
+                        });
+
+                function mykanban_update(target) {
+                    if (target) {
+                        var stack_from = $(target).parent("ul").parent("div").attr("id");
+                        console.log("from:" + stack_from)
+                    }
+                }
+            });
+            //]]>
+        </script>
+        <table  border="1">
+            
+        <tr py:for="id,si,rank,title in stack_cursor">
+            <td>$id</td><td>$si</td><td>$rank</td><td>$title</td>
+        </tr>
+            
+        </table>
+        
+        <h1 id="conv">$ent</h1>
+        
+        <script>
+            $(document).ready(function(){
+                var el = $("#conv");
+                var ct = el.text();
+                $("#conv").text(escape(ct))
+            });
+        </script>
+    </body>
+</html>
